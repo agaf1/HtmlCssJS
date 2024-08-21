@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+</head>
+<style>
+    .main{
+        margin: auto;
+        width: 50%;
+    }
+    .tableStyle{
+        width: 500Px
+    }
+    .width250{
+        width:250px;
+    }
+    #menuVege{
+        display: none;
+    }
+    #menuMeat{
+        display: none;
+    }
+
+
+</style>
+
+<script>
+    let veganDish = [
+        {name:"fish", price:20},
+        {name:"salad", price:15}
+    ];
+    let meatDish = [
+        {name:"chicken", price:30},
+        {name:"spaghetti bolonese", price:24},
+        {name:"beef roulades", price:26}
+    ];
+
+
+
+    function showDish(dishes,parentElementName){
+        console.log(dishes,parentElementName);
+
+        document.getElementById("menuVege").style.display = "none";
+        document.getElementById("menuMeat").style.display = "none";
+
+        if(parentElementName == 'veganDishes'){
+            document.getElementById("menuVege").style.display = "block";
+        }else{
+            document.getElementById("menuMeat").style.display = "block";
+        }
+
+        let template = document.getElementById("dishTemplate");
+        let  parentElement =  document.getElementById(parentElementName);
+        console.log(parentElement);
+
+        parentElement.innerHTML  = "";
+        let l = dishes.length;
+        for(let i = 0; i<l; i++){
+            template.content.getElementById("name").innerText = dishes[i].name;
+            template.content.getElementById("price").innerText = dishes[i].price;
+            parentElement.append(template.content.cloneNode(true));
+        }
+    }
+
+</script>
+<body>
+<template id="dishTemplate">
+
+    <tr>
+        <td id="name"></td>
+        <td id="price"></td>
+    </tr>
+
+</template>
+<div class="main">
+    <form>
+        <table class="tableStyle">
+            <tr>
+                <td>
+                    <h3>Menu Type</h3>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="width250">
+                    <input type="radio" id="vegan" name="menuType" value="vegan"
+                           onclick="showDish(veganDish,'veganDishes')">
+                    <label for="vegan">vegan</label></input>
+                </td>
+                <td class="width250">
+                    <input type="radio" id="meat" name="menuType" value="meat"
+                           onclick="showDish(meatDish,'meatDishes')">
+                    <label for="meat">meat</label></input></td>
+            </tr>
+            <tr>
+                <td>
+                    <table id="menuVege">
+                        <thead>
+                        <tr>
+                            <td>Name</td>
+                            <td>Price</td>
+                        </tr>
+                        </thead>
+                        <tbody id="veganDishes"></tbody>
+                    </table>
+                </td>
+                <td>
+                    <table id="menuMeat">
+                        <thead>
+                        <tr>
+                            <td>Name</td>
+                            <td>Price</td>
+                        </tr>
+                        </thead>
+                        <tbody id="meatDishes"></tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <input type="submit"/>
+    </form>
+</div>
+</body>
+</html>
